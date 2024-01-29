@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const Shapes = require("./lib/shapes")
+const {Triangle, Square, Circle} = require("./lib/shapes") //destructuring the object
 
 //array of questions to get user input
 const questions = [
