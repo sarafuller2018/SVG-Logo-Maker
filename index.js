@@ -30,7 +30,7 @@ const questions = [
     },
 ]
 
-//function to create SVG file
+//function to create SVG file using input
 function createSVG() {
     inquirer
         .prompt(questions)
@@ -38,7 +38,9 @@ function createSVG() {
 
             if (responses.logoName.length > 3) {
                 console.log("ERROR: Your logo has a maximum of 3 characters.")
+
             } else {
+                
                 if (responses.shape == "triangle") {
                     const Triangle1 = new Triangle(responses.logoName, responses.textColor, responses.shapeColor);
                     const renderSVGFileTriangle1 = Triangle1.render()
