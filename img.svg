@@ -1,0 +1,7 @@
+<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+
+        <rect x="25" y="50" width="150" height="150" fill="#AD5A49"/>
+      
+        <text x="50" y="140" font-size="60" fill="#FFC300">SDF</text>
+      
+      </svg>
