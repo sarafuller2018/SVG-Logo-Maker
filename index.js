@@ -36,21 +36,25 @@ function createSVG() {
         .prompt(questions)
         .then((responses) => {
 
-            if (responses.shape == "triangle") {
-                const Triangle1 = new Triangle(responses.logoName, responses.textColor, responses.shapeColor);
-                const renderSVGFileTriangle1 = Triangle1.render()
-
-                writeFile("logo.svg", renderSVGFileTriangle1).then(() => console.log("Generated logo.svg"))
-            } else if (responses.shape == "square") {
-                const Square1 = new Square(responses.logoName, responses.textColor, responses.shapeColor);
-                const renderSVGFileSquare1 = Square1.render()
-
-                writeFile("logo.svg", renderSVGFileSquare1).then(() => console.log("Generated logo.svg"))
+            if (responses.logoName.length > 3) {
+                console.log("ERROR: Your logo has a maximum of 3 characters.")
             } else {
-                const Circle1 = new Circle(responses.logoName, responses.textColor, responses.shapeColor);
-                const renderSVGFileCircle1 = Circle1.render()
+                if (responses.shape == "triangle") {
+                    const Triangle1 = new Triangle(responses.logoName, responses.textColor, responses.shapeColor);
+                    const renderSVGFileTriangle1 = Triangle1.render()
 
-                writeFile("logo.svg", renderSVGFileCircle1).then(() => console.log("Generated logo.svg"))
+                    writeFile("logo.svg", renderSVGFileTriangle1).then(() => console.log("Generated logo.svg"))
+                } else if (responses.shape == "square") {
+                    const Square1 = new Square(responses.logoName, responses.textColor, responses.shapeColor);
+                    const renderSVGFileSquare1 = Square1.render()
+
+                    writeFile("logo.svg", renderSVGFileSquare1).then(() => console.log("Generated logo.svg"))
+                } else {
+                    const Circle1 = new Circle(responses.logoName, responses.textColor, responses.shapeColor);
+                    const renderSVGFileCircle1 = Circle1.render()
+
+                    writeFile("logo.svg", renderSVGFileCircle1).then(() => console.log("Generated logo.svg"))
+                }
             }
         });
 };
