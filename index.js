@@ -1,13 +1,18 @@
 const inquirer = require("inquirer");
+const MaxLengthInputPrompt = require("inquirer-maxlength-input-prompt");
 const { Triangle, Square, Circle } = require("./lib/shapes"); //destructuring the object
 const { writeFile } = require("fs/promises");
+
+//allows input to be limited character length
+inquirer.registerPrompt("inputMaxLength", MaxLengthInputPrompt);
 
 //array of questions to get user input
 const questions = [
     {
-        type: "input",
+        type: "inputMaxLength",
         message: "Please enter up to 3 characters for your logo.",
-        name: "logoName"
+        name: "logoName",
+        maxLength: 3
     },
 
     {
@@ -36,11 +41,6 @@ function createSVG() {
         .prompt(questions)
         .then((responses) => {
 
-            if (responses.logoName.length > 3) {
-                console.log("ERROR: Your logo has a maximum of 3 characters.")
-
-            } else {
-
                 if (responses.shape == "triangle") {
                     const Triangle1 = new Triangle(responses.logoName, responses.textColor, responses.shapeColor);
                     const renderSVGFileTriangle1 = Triangle1.render()
@@ -57,8 +57,7 @@ function createSVG() {
 
                     writeFile("logo.svg", renderSVGFileCircle1).then(() => console.log("Generated logo.svg"))
                 }
-            }
-        });
-};
+            })
+        };
 
 createSVG();
