@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
-const MaxLengthInputPrompt = require("inquirer-maxlength-input-prompt");
+const MaxLengthInputPrompt = require("inquirer-maxlength-input-prompt"); //validates character length
 const { Triangle, Square, Circle } = require("./lib/shapes"); //destructuring the object
 const { writeFile } = require("fs/promises");
+const validateColor = require("validate-color").default; //validates color input
 
 //allows input to be limited character length
 inquirer.registerPrompt("inputMaxLength", MaxLengthInputPrompt);
@@ -20,8 +21,7 @@ const questions = [
         message: "What color would you like your logo text? (Use color keyword or hexadecimal number.)",
         name: "textColor",
         validate: function (textColor) {
-            const pattern = new RegExp('^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
-            if (!pattern.test(textColor)) {
+            if (!validateColor(textColor)) {
                 throw new Error("Please enter a valid color.");
             } else {
                 return true;
@@ -40,9 +40,8 @@ const questions = [
         type: "input",
         message: "What color would you like your logo shape? (Use color keyword or hexadecimal number.)",
         name: "shapeColor",
-        validate: function (textColor) {
-            const pattern = new RegExp('^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
-            if (!pattern.test(textColor)) {
+        validate: function (shapeColor) {
+            if (!validateColor(shapeColor)) {
                 throw new Error("Please enter a valid color.");
             } else {
                 return true;
