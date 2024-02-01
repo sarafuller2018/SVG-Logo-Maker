@@ -18,7 +18,15 @@ const questions = [
     {
         type: "input",
         message: "What color would you like your logo text? (Use color keyword or hexadecimal number.)",
-        name: "textColor"
+        name: "textColor",
+        validate: function (textColor) {
+            const pattern = new RegExp('^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
+            if (!pattern.test(textColor)) {
+                throw new Error("Please enter a valid color.");
+            } else {
+                return true;
+            }
+        }
     },
 
     {
@@ -31,8 +39,16 @@ const questions = [
     {
         type: "input",
         message: "What color would you like your logo shape? (Use color keyword or hexadecimal number.)",
-        name: "shapeColor"
-    },
+        name: "shapeColor",
+        validate: function (textColor) {
+            const pattern = new RegExp('^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$');
+            if (!pattern.test(textColor)) {
+                throw new Error("Please enter a valid color.");
+            } else {
+                return true;
+            }
+        }
+    }
 ]
 
 //function to create SVG file using input
@@ -41,23 +57,23 @@ function createSVG() {
         .prompt(questions)
         .then((responses) => {
 
-                if (responses.shape == "triangle") {
-                    const Triangle1 = new Triangle(responses.logoName, responses.textColor, responses.shapeColor);
-                    const renderSVGFileTriangle1 = Triangle1.render()
+            if (responses.shape == "triangle") {
+                const Triangle1 = new Triangle(responses.logoName, responses.textColor, responses.shapeColor);
+                const renderSVGFileTriangle1 = Triangle1.render()
 
-                    writeFile("logo.svg", renderSVGFileTriangle1).then(() => console.log("Generated logo.svg"))
-                } else if (responses.shape == "square") {
-                    const Square1 = new Square(responses.logoName, responses.textColor, responses.shapeColor);
-                    const renderSVGFileSquare1 = Square1.render()
+                writeFile("logo.svg", renderSVGFileTriangle1).then(() => console.log("Generated logo.svg"))
+            } else if (responses.shape == "square") {
+                const Square1 = new Square(responses.logoName, responses.textColor, responses.shapeColor);
+                const renderSVGFileSquare1 = Square1.render()
 
-                    writeFile("logo.svg", renderSVGFileSquare1).then(() => console.log("Generated logo.svg"))
-                } else {
-                    const Circle1 = new Circle(responses.logoName, responses.textColor, responses.shapeColor);
-                    const renderSVGFileCircle1 = Circle1.render()
+                writeFile("logo.svg", renderSVGFileSquare1).then(() => console.log("Generated logo.svg"))
+            } else {
+                const Circle1 = new Circle(responses.logoName, responses.textColor, responses.shapeColor);
+                const renderSVGFileCircle1 = Circle1.render()
 
-                    writeFile("logo.svg", renderSVGFileCircle1).then(() => console.log("Generated logo.svg"))
-                }
-            })
-        };
+                writeFile("logo.svg", renderSVGFileCircle1).then(() => console.log("Generated logo.svg"))
+            }
+        })
+};
 
 createSVG();
